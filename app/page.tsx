@@ -1,33 +1,52 @@
-import { AppleCardsCarousel } from "@/components/Carrousel";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import { TimelineSchool } from "@/components/Timeline";
 import { FloatingSocial } from "@/components/FloatingSocial";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
-
+import { Header } from "@/components/Header";
+import { SectionObserver } from "@/components/SectionObserver";
+import SpaceSection from "@/components/SpaceSection";
+import StratosphereSection from "@/components/StratosphereSection";
+import AtmosphereSection from "@/components/AtmosphereSection";
+import EarthSection from "@/components/EarthSection";
+import UndergroundSection from "@/components/UndergroundSection";
+import SectionIndicators from "@/components/SectionIndicators";
 
 export default function Home() {
   return (
-    <div className="p-0 m-0">
-      <TracingBeam className="px-1">
-        {/* Hero */}
-        <h1 className="text-4xl font-bold text-center text-neutral-800 dark:text-neutral-200">
-          Welcome to the Apple Club.
-        </h1>
-        {/* Projets */}
-        <AppleCardsCarousel />
-        {/* Etudes */}
-
-        <TimelineSchool />
-
-
-      </TracingBeam>
-      {/* <Footer /> */}
-      <BackgroundGradientAnimation>
-        <div className="grid justify-items-center ">
-          <FloatingSocial />
-          <p className="text-purple-50">Rakotoniaina Kevin © 2024</p>
-        </div>
-      </BackgroundGradientAnimation>
-    </div>
+    <>
+      {/* Header est géré séparément pour garder la navigation flottante */}
+      <Header />
+      
+      {/* Indicateurs de navigation des sections */}
+      <SectionIndicators />
+      
+      {/* Conteneur principal avec défilement optimisé */}
+      <main className="scroll-container">
+        <SectionObserver>
+          {/* Section Espace - Page d'accueil */}
+          <SpaceSection />
+          
+          {/* Section Stratosphère - Compétences */}
+          <div id="competences" className="section-container section-transition">
+            <StratosphereSection />
+          </div>
+          
+          {/* Section Atmosphère - Projets */}
+          <div id="projets" className="section-container section-transition">
+            <AtmosphereSection />
+          </div>
+          
+          {/* Section Terre - Expérience */}
+          <div id="experience" className="section-container section-transition">
+            <EarthSection />
+          </div>
+          
+          {/* Section Sous-Terre - Contact & Footer */}
+          <div className="section-container section-transition">
+            <UndergroundSection />
+          </div>
+        </SectionObserver>
+      </main>
+    </>
   );
 }

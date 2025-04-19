@@ -1,0 +1,325 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in 2s ease-in-out;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+  
+  .animate-neon-flicker {
+    animation: neon-flicker-random 5s linear infinite;
+    position: relative;
+  }
+  
+  .animate-float-slow {
+    animation: float-vertical 4s ease-in-out infinite alternate, cloud-move-slow 45s linear infinite;
+  }
+  
+  .animate-float-medium {
+    animation: float-vertical 6s ease-in-out infinite alternate, cloud-move-medium 55s linear infinite;
+  }
+}
+
+@keyframes float-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes cloud-move-slow {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-40px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes cloud-move-medium {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-60px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes neon-flicker-random {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212),
+      0 0 25px rgb(6, 182, 212);
+  }
+  5% {
+    opacity: 0.2;
+    text-shadow: none;
+  }
+  6% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212);
+  }
+  10% {
+    opacity: 0.2;
+    text-shadow: none;
+  }
+  11% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  15% {
+    opacity: 0.3;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212);
+  }
+  16% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212);
+  }
+  30% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  31% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
+  32% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212);
+  }
+  36% {
+    opacity: 0.2;
+    text-shadow: none;
+  }
+  37% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212),
+      0 0 25px rgb(6, 182, 212);
+  }
+  41% {
+    opacity: 0.5;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212);
+  }
+  42% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  47% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212);
+  }
+  48% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  49% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  50% {
+    opacity: 0.2;
+    text-shadow: none;
+  }
+  51% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  55% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  56% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
+  57% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212);
+  }
+  75% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  76% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  77% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  80% {
+    opacity: 0.2;
+    text-shadow: none;
+  }
+  81% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212),
+      0 0 25px rgb(6, 182, 212);
+  }
+  85% {
+    opacity: 0.3;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212);
+  }
+  86% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  91% {
+    opacity: 0.2;
+    text-shadow: none;
+  }
+  92% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212);
+  }
+  97% {
+    opacity: 0.5;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212);
+  }
+  98% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px rgb(6, 182, 212),
+      0 0 10px rgb(6, 182, 212),
+      0 0 15px rgb(6, 182, 212),
+      0 0 20px rgb(6, 182, 212),
+      0 0 25px rgb(6, 182, 212);
+  }
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} 
