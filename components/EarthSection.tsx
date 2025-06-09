@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 
 // Interface pour les expériences professionnelles
 interface Experience {
@@ -9,25 +10,32 @@ interface Experience {
   period: string;
   description: string;
   skills: string[];
+  isApprenticeship: boolean;
 }
 
 export default function EarthSection() {
-  const earthRef = useRef<HTMLDivElement>(null);
+  const buildingsRef = useRef<HTMLDivElement>(null);
+  const roadRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   
-  // Animation de rotation de la Terre
+  // Effet de parallaxe pour les buildings
   useEffect(() => {
-    const earthElement = earthRef.current;
-    if (!earthElement) return;
-    
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const elementTop = earthElement.getBoundingClientRect().top + scrollTop;
-      const offset = scrollTop - elementTop;
+      if (!buildingsRef.current || !roadRef.current || !sectionRef.current) return;
       
-      if (offset > -window.innerHeight && offset < window.innerHeight) {
-        const rotation = offset * 0.05;
-        earthElement.style.transform = `rotate(${rotation}deg)`;
+      const sectionTop = sectionRef.current.getBoundingClientRect().top;
+      const viewportHeight = window.innerHeight;
+      
+      // Calculer la progression du scroll dans la section
+      // -1 quand on est au-dessus, 0 quand on entre, 1 quand on sort par le bas
+      const scrollProgress = -sectionTop / viewportHeight;
+      
+      if (scrollProgress >= -0.5 && scrollProgress <= 1.5) {
+        // Effet parallaxe: les buildings se déplacent plus lentement que le scroll
+        buildingsRef.current.style.transform = `translateY(${scrollProgress * 30}px)`;
+        
+        // La route se déplace plus vite pour donner l'impression de mouvement
+        roadRef.current.style.backgroundPositionY = `${scrollProgress * 200}px`;
       }
     };
     
@@ -88,27 +96,23 @@ export default function EarthSection() {
   // Expériences professionnelles
   const experiences: Experience[] = [
     {
-      role: "Senior Front-end Developer",
-      company: "Tech Innovations Inc.",
-      period: "2022 - Présent",
-      description: "Développement d'applications web avec React et Next.js. Leader technique pour l'équipe front-end. Mise en place d'architectures évolutives et maintenables.",
-      skills: ["React", "Next.js", "TypeScript", "GraphQL", "UI/UX"]
+      role: "Développeur Fullstack",
+      company: "MASTORE SARL",
+      period: "Décembre 2023 - Juillet 2025",
+      description: "Maintenance évolutive de l'ERP interne et développement d'un module statistique en Go, PostgreSQL et React. Participation aux revues de code, CI/CD avec GitLab, et mise en production via ArgoCD. Collaboration en équipe agile (sprints hebdomadaires).",
+      skills: ["Go", "React", "PostgreSQL", "Docker", "GitLab", "ArgoCD"],
+      isApprenticeship: true
     },
     {
-      role: "Full-Stack Developer",
-      company: "Digital Solutions Group",
-      period: "2019 - 2022",
-      description: "Développement complet d'applications web, de l'interface utilisateur aux API et bases de données. Implémentation de fonctionnalités innovantes et optimisation des performances.",
-      skills: ["JavaScript", "Node.js", "MongoDB", "Express", "React"]
+      role: "Développeur Web & Mobile",
+      company: "WAA-AGROPRO",
+      period: "Mars 2023 - Décembre 2023",
+      description: "Création d'une application mobile FlutterFlow pour la plateforme de petites annonces MESBONAF. Intégration Firebase (authentification, base de données, notifications), maintenance du site e-commerce sous Prestashop et développement d'interfaces interactives.",
+      skills: ["FlutterFlow", "Firebase", "React", "PHP", "PrestaShop", "Figma"],
+      isApprenticeship: true
     },
-    {
-      role: "Junior Web Developer",
-      company: "WebCraft Agency",
-      period: "2017 - 2019",
-      description: "Création de sites web et d'applications pour divers clients. Participation active aux processus de conception et développement dans une équipe agile.",
-      skills: ["HTML/CSS", "JavaScript", "WordPress", "PHP", "Responsive Design"]
-    }
   ];
+  
 
   // State to track if we're on client-side
   const [isClient, setIsClient] = useState(false);
@@ -119,37 +123,79 @@ export default function EarthSection() {
   }, []);
 
   return (
-    <section className="relative py-20 overflow-hidden" ref={sectionRef}>
-      {/* Dégradé de fond avec transition depuis AtmosphereSection */}
+    <section className="relative pt-20 pb-32 overflow-hidden min-h-screen" ref={sectionRef} id="experience">
+      {/* Arrière-plan urbain avec dégradé de ciel */}
       <div 
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 overflow-hidden"
         style={{ 
-          background: 'linear-gradient(to bottom, #06b6d4 0%, #0ea5e9 20%, #10b981 60%, #22c55e 100%)' 
+          background: 'linear-gradient(to bottom, #06b6d4 0%, #0ea5e9 30%, #2563eb 70%, #1e40af 100%)' 
         }}
       />
       
-      {/* Éléments décoratifs terrestres */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Cercle représentant la Terre */}
-        <div ref={earthRef} className="earth absolute -right-[30%] top-[10%] w-[60%] aspect-square rounded-full bg-gradient-to-br from-blue-700 via-green-600 to-blue-500 opacity-20"></div>
+      {/* SVG des buildings comme skyline */}
+      <div 
+        ref={buildingsRef}
+        className="absolute inset-0 z-1 overflow-hidden pointer-events-none"
+      >
+        <div className="absolute bottom-0 left-0 right-0 w-full">
+          <img 
+            src="/images/stuff/building.svg" 
+            alt="Urban Skyline" 
+            className="w-full h-auto object-cover object-bottom min-w-[1200px]"
+            style={{ opacity: 0.8 }}
+          />
+        </div>
         
-        {/* Éléments représentant des continents */}
-        <div className="continent continent-1 absolute top-[20%] left-[10%] w-[10%] h-[15%] bg-green-700/30 rounded-[40%] transform rotate-12"></div>
-        <div className="continent continent-2 absolute top-[30%] left-[25%] w-[15%] h-[10%] bg-green-700/30 rounded-[60%] transform -rotate-6"></div>
-        <div className="continent continent-3 absolute bottom-[25%] left-[15%] w-[20%] h-[12%] bg-green-700/30 rounded-[50%] transform rotate-25"></div>
+        {/* Effet de lueur nocturne urbaine */}
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-700/30 to-transparent mix-blend-overlay"></div>
       </div>
       
+      {/* Route goudronnée avec marquage */}
+      <div 
+        ref={roadRef}
+        className="absolute bottom-0 left-0 right-0 h-[15vh] z-3"
+        style={{
+          background: 'linear-gradient(to bottom, #1e1e24, #0f0f12)',
+          boxShadow: 'inset 0 5px 10px rgba(0,0,0,0.5)'
+        }}
+      >
+        {/* Marquage central */}
+        <div className="absolute top-1/2 left-0 right-0 h-[6px] transform -translate-y-1/2">
+          {Array.from({ length: 20 }, (_, i) => (
+            <div 
+              key={i}
+              className="absolute h-full w-[40px] bg-yellow-400"
+              style={{ left: `${i * 5}%` }}
+            ></div>
+          ))}
+        </div>
+        
+        {/* Grilles d'égout */}
+        <div className="absolute top-[20%] left-[30%] w-[60px] h-[15px] bg-gray-700 rounded-sm border border-gray-600"></div>
+        <div className="absolute top-[60%] left-[70%] w-[60px] h-[15px] bg-gray-700 rounded-sm border border-gray-600"></div>
+        
+        {/* Effet de texture */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/5 mix-blend-overlay"></div>
+      </div>
+      
+      {/* Lumières de phares qui passent */}
+      <div className="absolute bottom-[6vh] left-[-100px] z-3 animate-car-passing">
+        <div className="w-[15px] h-[15px] bg-white rounded-full opacity-80 blur-[2px]"></div>
+        <div className="w-[15px] h-[15px] bg-white rounded-full opacity-80 blur-[2px] ml-[30px] -mt-[15px]"></div>
+      </div>
+      
+      {/* Contenu principal */}
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="section-title text-4xl font-bold text-white mb-4 transition-all duration-1000 ease-out opacity-0 translate-y-5">Parcours Professionnel</h2>
-            <p className="text-green-100 max-w-2xl mx-auto transition-all duration-1000 ease-out opacity-0 translate-y-5" style={{ transitionDelay: '100ms' }}>
-              Mon voyage sur Terre en tant que développeur web, avec les entreprises qui m'ont fait confiance.
+            <h2 className="section-title text-4xl font-bold text-white mb-4 drop-shadow-lg transition-all duration-1000 ease-out opacity-0 translate-y-5">Parcours Professionnel</h2>
+            <p className="text-gray-100 max-w-2xl mx-auto drop-shadow-lg transition-all duration-1000 ease-out opacity-0 translate-y-5" style={{ transitionDelay: '100ms' }}>
+              Mon voyage à travers le monde professionnel, bâtissant ma carrière dans l'écosystème urbain du développement web.
             </p>
           </div>
           
           {/* Timeline d'expériences */}
-          <div className="relative border-l-4 border-white/40 ml-4 md:ml-0 md:mx-auto">
+          <div className="relative border-l-4 border-sky-400/50 ml-4 md:ml-0 md:mx-auto backdrop-blur-sm p-6 rounded-lg bg-sky-900/50">
             {experiences.map((exp, index) => (
               <div 
                 key={index} 
@@ -162,26 +208,33 @@ export default function EarthSection() {
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {/* Ligne du temps */}
+                {/* Ligne du temps avec effet néon */}
                 <div className="absolute -left-2 md:static md:mr-8 md:w-40 md:flex md:flex-col md:items-end">
-                  <div className="w-4 h-4 rounded-full bg-white border-4 border-green-600 absolute -left-[10px] md:relative md:left-auto md:mb-2"></div>
-                  <span className="hidden md:block text-white font-semibold">{exp.period}</span>
+                  <div className="w-4 h-4 rounded-full bg-white border-4 border-sky-400 absolute -left-[10px] md:relative md:left-auto md:mb-2 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                  <span className="hidden md:block text-white font-semibold drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]">{exp.period}</span>
                 </div>
                 
-                {/* Contenu */}
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-white/20 flex-1">
+                {/* Contenu avec effet verre */}
+                <div className="bg-sky-800/60 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-sky-700/70 flex-1 hover:bg-sky-800/70 transition-all group">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-bold text-white">{exp.role}</h3>
-                      <p className="text-green-100 mb-4">{exp.company} · <span className="md:hidden">{exp.period}</span></p>
+                      <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">{exp.role}</h3>
+                      <p className="text-blue-200 mb-4">
+                        {exp.company} · <span className="md:hidden">{exp.period}</span>
+                        {exp.isApprenticeship && (
+                          <span className="ml-2 px-2 py-0.5 text-xs font-medium bg-blue-500/30 text-blue-200 rounded-full border border-blue-400/30">
+                            Alternance
+                          </span>
+                        )}
+                      </p>
                     </div>
                   </div>
                   
-                  <p className="text-white/80 mb-4">{exp.description}</p>
+                  <p className="text-gray-300 mb-4">{exp.description}</p>
                   
                   <div className="flex flex-wrap gap-2">
                     {exp.skills.map((skill, idx) => (
-                      <span key={idx} className="px-3 py-1 text-xs font-medium text-white bg-green-600/40 rounded-full">
+                      <span key={idx} className="px-3 py-1 text-xs font-medium text-white bg-blue-600/40 rounded-full border border-blue-500/30 hover:bg-blue-600/60 transition-colors">
                         {skill}
                       </span>
                     ))}
@@ -196,7 +249,7 @@ export default function EarthSection() {
               href="/cv.pdf" 
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 bg-white/90 hover:bg-white text-green-700 font-semibold rounded-lg transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-blue-600/80 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all shadow-[0_0_15px_rgba(37,99,235,0.5)] hover:shadow-[0_0_20px_rgba(37,99,235,0.7)]"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -207,12 +260,40 @@ export default function EarthSection() {
         </div>
       </div>
       
+      {/* Lampadaires urbains avec effet lumineux */}
+      <div className="absolute bottom-[15vh] left-[20%] z-4 w-[4px] h-[25vh] bg-gray-700">
+        <div className="absolute top-0 w-[20px] h-[8px] bg-gray-600 left-[-8px]"></div>
+        <div className="absolute top-[8px] w-[6px] h-[6px] bg-amber-300 left-[-1px] shadow-[0_0_12px_rgba(217,119,6,0.9)]"></div>
+      </div>
+      
+      <div className="absolute bottom-[15vh] right-[30%] z-4 w-[4px] h-[25vh] bg-gray-700">
+        <div className="absolute top-0 w-[20px] h-[8px] bg-gray-600 left-[-8px]"></div>
+        <div className="absolute top-[8px] w-[6px] h-[6px] bg-amber-300 left-[-1px] shadow-[0_0_12px_rgba(217,119,6,0.9)]"></div>
+      </div>
+      
+      {/* Lumières des fenêtres clignotantes */}
+      <div className="absolute bottom-[30vh] left-0 right-0 z-2 pointer-events-none">
+        {Array.from({ length: 20 }, (_, i) => (
+          <div 
+            key={i}
+            className="absolute w-[6px] h-[6px] bg-yellow-100"
+            style={{
+              left: `${Math.random() * 100}%`,
+              bottom: `${Math.random() * 30 + 10}vh`,
+              opacity: 0.7,
+              filter: 'blur(1px)',
+              animation: `blink ${Math.random() * 3 + 2}s ease-in-out infinite alternate`
+            }}
+          />
+        ))}
+      </div>
+      
       {/* Transition gradient overlay vers la section Contact */}
       <div 
         className="absolute bottom-0 left-0 right-0 h-32 z-5 opacity-90"
         style={{ 
-          background: 'linear-gradient(to bottom, transparent, #1f2937)', 
-          boxShadow: '0 -10px 30px 30px rgba(31, 41, 55, 0.15)'
+          background: 'linear-gradient(to bottom, transparent, #1e3a8a)', 
+          boxShadow: '0 -10px 30px 30px rgba(30, 58, 138, 0.15)'
         }}
       ></div>
       
@@ -241,7 +322,7 @@ export default function EarthSection() {
           <div 
             className="absolute h-24 w-full" 
             style={{
-              backgroundImage: 'url("data:image/svg+xml,%3Csvg width=%22100%25%22 height=%22100%25%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cdefs%3E%3ClinearGradient id=%22a%22 gradientUnits=%22userSpaceOnUse%22 x1=%220%22 x2=%220%22 y1=%220%22 y2=%22100%25%22%3E%3Cstop offset=%220%22 stop-color=%22%231f2937%22 stop-opacity=%220%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%231f2937%22 stop-opacity=%22.5%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d=%22M0 40 Q 25 20 50 40 T 100 40 V 100 H 0 Z%22 fill=%22url(%23a)%22/%3E%3C/svg%3E")',
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg width=%22100%25%22 height=%22100%25%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cdefs%3E%3ClinearGradient id=%22a%22 gradientUnits=%22userSpaceOnUse%22 x1=%220%22 x2=%220%22 y1=%220%22 y2=%22100%25%22%3E%3Cstop offset=%220%22 stop-color=%22%231e3a8a%22 stop-opacity=%220%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%231e3a8a%22 stop-opacity=%22.5%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d=%22M0 40 Q 25 20 50 40 T 100 40 V 100 H 0 Z%22 fill=%22url(%23a)%22/%3E%3C/svg%3E")',
               backgroundSize: '100% 100%',
               opacity: 0.7
             }}
@@ -249,6 +330,39 @@ export default function EarthSection() {
           </div>
         </div>
       </div>
+      
+      {/* Style global pour l'animation des lumières clignotantes */}
+      <style jsx global>{`
+        @keyframes blink {
+          0%, 80% { opacity: 0.7; }
+          100% { opacity: 0.1; }
+        }
+        
+        @keyframes car-passing {
+          0% { transform: translateX(0); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateX(calc(100vw + 200px)); opacity: 0; }
+        }
+        
+        .animate-car-passing {
+          animation: car-passing 8s linear infinite;
+        }
+        
+        @keyframes float-slow {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-15px); }
+        }
+        
+        @keyframes particle-fade-in {
+          0% { opacity: 0; }
+          100% { opacity: 0.7; }
+        }
+        
+        .transition-particle {
+          transition: opacity 1s ease-out;
+        }
+      `}</style>
     </section>
   );
 } 

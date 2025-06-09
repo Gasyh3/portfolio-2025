@@ -6,19 +6,17 @@ import { Header } from "@/components/Header";
 import { SectionObserver } from "@/components/SectionObserver";
 import SpaceSection from "@/components/SpaceSection";
 import StratosphereSection from "@/components/StratosphereSection";
+import MesosphereSection from "@/components/MesosphereSection";
 import AtmosphereSection from "@/components/AtmosphereSection";
 import EarthSection from "@/components/EarthSection";
 import UndergroundSection from "@/components/UndergroundSection";
-import SectionIndicators from "@/components/SectionIndicators";
+// Test de l'outil edit_file
 
 export default function Home() {
   return (
     <>
       {/* Header est géré séparément pour garder la navigation flottante */}
       <Header />
-      
-      {/* Indicateurs de navigation des sections */}
-      <SectionIndicators />
       
       {/* Conteneur principal avec défilement optimisé */}
       <main className="scroll-container">
@@ -29,6 +27,11 @@ export default function Home() {
           {/* Section Stratosphère - Compétences */}
           <div id="competences" className="section-container section-transition">
             <StratosphereSection />
+          </div>
+          
+          {/* Section Mésosphère - Certifications */}
+          <div id="certifications" className="section-container section-transition">
+            <MesosphereSection />
           </div>
           
           {/* Section Atmosphère - Projets */}
@@ -42,7 +45,7 @@ export default function Home() {
           </div>
           
           {/* Section Sous-Terre - Contact & Footer */}
-          <div className="section-container section-transition">
+          <div id="contact" className="section-container section-transition">
             <UndergroundSection />
           </div>
         </SectionObserver>

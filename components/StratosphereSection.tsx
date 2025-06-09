@@ -285,11 +285,11 @@ export default function StratosphereSection() {
         </div>
       </div>
 
-      {/* Transition vers l'atmosphère */}
+      {/* Transition vers la Mésosphère */}
       <div 
         className="absolute bottom-0 left-0 right-0 h-32 z-10"
         style={{ 
-          background: 'linear-gradient(to bottom, transparent, rgba(75, 108, 183, 0.5))'
+          background: 'linear-gradient(to bottom, transparent, rgba(255, 81, 47, 0.5))'
         }}
       ></div>
     </section>

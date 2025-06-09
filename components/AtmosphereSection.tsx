@@ -185,33 +185,41 @@ export default function AtmosphereSection() {
   // Exemple de projets
   const projects = [
     {
-      title: "Dashboard Analytics",
-      description: "Application de visualisation de données avec des graphiques interactifs et tableaux de bord personnalisables. Cette solution offre des insights précieux sur les performances commerciales et permet de prendre des décisions basées sur les données en temps réel.",
-      imageSrc: "/images/projects/placeholder1.jpg",
-      tags: ["React", "D3.js", "TypeScript", "Redux", "API REST"],
-      link: "#"
+      title: "ESFORMA",
+      description: "Esforma est une entreprise spécialisée dans la formation - sécurité - des entreprises.",
+      imageSrc: "/images/stuff/esforma_miniature.png",
+      tags: ["Wordpress", "PHP", "CSS", "HTML", "JavaScript"],
+      link: "https://www.esforma.fr/"
     },
     {
-      title: "E-commerce Platform",
-      description: "Plateforme e-commerce complète avec panier d'achat, passerelle de paiement sécurisée et système de gestion des commandes. Le site offre une expérience utilisateur fluide et responsive sur tous les appareils, avec des temps de chargement optimisés.",
-      imageSrc: "/images/projects/placeholder2.jpg",
-      tags: ["Next.js", "Stripe", "MongoDB", "Tailwind CSS", "Redux"],
-      link: "#"
-    },
-    {
-      title: "AI Content Assistant",
-      description: "Outil d'aide à la rédaction utilisant l'intelligence artificielle pour suggérer du contenu optimisé pour le SEO. Cette application permet aux créateurs de contenu d'améliorer leur productivité tout en maintenant une haute qualité éditoriale.",
-      imageSrc: "/images/projects/placeholder3.jpg",
-      tags: ["Vue.js", "Node.js", "OpenAI", "Express", "PostgreSQL"],
-      link: "#"
-    },
-    {
-      title: "Social Media Analytics",
-      description: "Plateforme d'analyse pour les réseaux sociaux qui permet de suivre l'engagement, la croissance des abonnés et l'impact des publications. L'outil offre des rapports détaillés et des recommandations personnalisées basées sur les données collectées.",
-      imageSrc: "/images/projects/placeholder4.png",
-      tags: ["React", "Firebase", "GraphQL", "Material UI", "Chart.js"],
-      link: "#"
+      title: "MASTORE - Module Statistiques ERP",
+      description: "Mastore est un bureau d'études et de maîtrise d’œuvre spécialisé dans la création et la maintenance de réseaux de magasins.",
+      imageSrc: "/images/stuff/mastore_miniature.png",
+      tags: ["Go", "PostgreSQL", "React", "CI/CD", "Docker"],
+      link: "https://mastore.vercel.app/"
     }
+    ,
+    {
+      title: "Booki",
+      description: "Projet étudiant de création d'un site de réservation de location de vacances.",
+      imageSrc: "/images/stuff/booki_miniature.png",
+      tags: ["HTML", "Redux"],
+      link: "https://gasyh3.github.io/P2_website/"
+    },
+    {
+      title: "Ohmyfood",
+      description: "Projet étudiant de création d'un site de réservation de restaurant.",
+      imageSrc: "/images/stuff/ohmyfood_miniature.png",
+      tags: ["HTML", "SCSS", "JavaScript"],
+      link: "https://gasyh3.github.io/P3_website/index.html"
+    },
+    {
+      title: "La Chouette Agence",
+      description: "Projet étudiant d'optimisation SEO.",
+      imageSrc: "/images/stuff/chouette_miniature.png",
+      tags: ["SEO", "HTML", "JavaScript", "SCSS"],
+      link: "https://gasyh3.github.io/P4_website/after_optimisation/"
+    }                                         
   ];
 
   return (

@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
+import MiniSnake from './MiniSnake';
 
 export default function UndergroundSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -146,7 +147,7 @@ export default function UndergroundSection() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="col-span-1 md:col-span-1">
+            <div className="col-span-1 md:col-span-2">
               {/* Informations de contact */}
               <div className="bg-gradient-to-br from-amber-900/40 to-gray-900/40 backdrop-blur-sm p-8 rounded-xl border border-amber-700/20 h-full flex flex-col">
                 <h3 className="text-xl font-bold text-amber-300 mb-6">Coordonnées</h3>
@@ -161,7 +162,7 @@ export default function UndergroundSection() {
                     <div>
                       <h4 className="text-sm font-semibold text-amber-300">E-mail</h4>
                       <a href="mailto:contact@kevin-rakotoniaina.com" className="text-amber-100 hover:text-amber-300 transition-colors">
-                        contact@kevin-rakotoniaina.com
+                        kevin.rakotoniaina@epitech.eu
                       </a>
                     </div>
                   </div>
@@ -175,8 +176,27 @@ export default function UndergroundSection() {
                     </div>
                     <div>
                       <h4 className="text-sm font-semibold text-amber-300">Localisation</h4>
-                      <p className="text-amber-100">Paris, France</p>
+                      <p className="text-amber-100">Lyon, France</p>
                     </div>
+                  </div>
+
+                    {/* Éléments décoratifs supplémentaires */}
+                    <div className="relative h-24 mt-8">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-full h-1 bg-gradient-to-r from-transparent via-amber-400/30 to-transparent"></div>
+                    </div>
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-2 h-2 bg-amber-400/40 rounded-full"
+                        style={{
+                          left: `${20 + i * 15}%`,
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          animation: `pulse ${2 + i * 0.5}s infinite`
+                        }}
+                      ></div>
+                    ))}
                   </div>
                   
                   <div className="contact-item flex items-start opacity-0 translate-y-10 transition-all duration-700">
@@ -195,17 +215,17 @@ export default function UndergroundSection() {
                 <div className="contact-item mt-8 pt-6 border-t border-amber-700/30 opacity-0 translate-y-10 transition-all duration-700">
                   <h4 className="text-sm font-semibold text-amber-300 mb-4">Réseaux sociaux</h4>
                   <div className="flex space-x-4">
-                    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="bg-amber-400/20 p-2 rounded-lg text-amber-300 hover:bg-amber-400/40 transition-colors">
+                    <a href="https://github.com/Gasyh3" target="_blank" rel="noopener noreferrer" className="bg-amber-400/20 p-2 rounded-lg text-amber-300 hover:bg-amber-400/40 transition-colors">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-0.547-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.237 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                       </svg>
                     </a>
-                    <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="bg-amber-400/20 p-2 rounded-lg text-amber-300 hover:bg-amber-400/40 transition-colors">
+                    <a href="https://gitlab.com/Gasyh3" target="_blank" rel="noopener noreferrer" className="bg-amber-400/20 p-2 rounded-lg text-amber-300 hover:bg-amber-400/40 transition-colors">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.006 10.006 0 01-3.127 1.195A4.936 4.936 0 0016.343 2c-3.053 0-5.273 2.855-4.588 5.823-3.908-.19-7.38-2.07-9.695-4.92a4.93 4.93 0 001.523 6.574 4.903 4.903 0 01-2.229-.616c-.054 2.28 1.581 4.415 3.95 4.89a4.936 4.936 0 01-2.224.084 4.928 4.928 0 004.6 3.42A9.9 9.9 0 010 19.54a14.01 14.01 0 007.548 2.213c9.142 0 14.307-7.721 13.995-14.647A10.025 10.025 0 0024 4.56z" />
+                        <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"/>
                       </svg>
                     </a>
-                    <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="bg-amber-400/20 p-2 rounded-lg text-amber-300 hover:bg-amber-400/40 transition-colors">
+                    <a href="https://www.linkedin.com/in/rakoto-kevin/" target="_blank" rel="noopener noreferrer" className="bg-amber-400/20 p-2 rounded-lg text-amber-300 hover:bg-amber-400/40 transition-colors">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.454C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
                       </svg>
@@ -215,67 +235,19 @@ export default function UndergroundSection() {
               </div>
             </div>
             
-            <div className="col-span-1 md:col-span-2">
-              {/* Formulaire de contact */}
-              <div className="contact-form bg-gradient-to-br from-amber-900/40 to-gray-900/40 backdrop-blur-sm p-8 rounded-xl border border-amber-700/20 opacity-0 translate-y-10 transition-all duration-700">
-                <h3 className="text-xl font-bold text-amber-300 mb-6">Envoyez-moi un message</h3>
+            <div className="col-span-1 md:col-span-1">
+              {/* Élément décoratif de remplacement */}
+              <div className="contact-form bg-gradient-to-br from-amber-900/40 to-gray-900/40 backdrop-blur-sm p-8 rounded-xl border border-amber-700/20 h-full opacity-0 translate-y-10 transition-all duration-700">
+                <h3 className="text-xl font-bold text-amber-300 mb-6">Mini Exploration</h3>
                 
-                {submitResult && (
-                  <div className={`mb-6 p-4 rounded-lg ${submitResult.success ? 'bg-green-900/50 text-green-300' : 'bg-red-900/50 text-red-300'}`}>
-                    {submitResult.message}
+                <div className="space-y-6">
+                  {/* Mini-jeu Snake */}
+                  <div className="bg-amber-900/20 rounded-lg p-4 border border-amber-700/20">
+                    <MiniSnake />
                   </div>
-                )}
+
                 
-                <form onSubmit={handleSubmit}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-amber-300 mb-1">Nom</label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formState.name}
-                        onChange={handleChange}
-                        className="w-full bg-amber-900/20 border border-amber-700/30 text-amber-100 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                        placeholder="Votre nom"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-amber-300 mb-1">Email</label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formState.email}
-                        onChange={handleChange}
-                        className="w-full bg-amber-900/20 border border-amber-700/30 text-amber-100 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                        placeholder="Votre email"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <label htmlFor="message" className="block text-sm font-medium text-amber-300 mb-1">Message</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formState.message}
-                      onChange={handleChange}
-                      rows={5}
-                      className="w-full bg-amber-900/20 border border-amber-700/30 text-amber-100 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                      placeholder="Votre message..."
-                      required
-                    ></textarea>
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`w-full py-3 px-6 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-gray-900 font-medium rounded-lg transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                  >
-                    {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
-                  </button>
-                </form>
+                </div>
               </div>
             </div>
           </div>

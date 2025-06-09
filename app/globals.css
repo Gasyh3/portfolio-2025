@@ -149,3 +149,44 @@ html, body {
   transform: scale(1.2);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
+
+/* Animation pour les phares de voiture qui passent */
+@keyframes car-passing {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+    opacity: 0;
+  }
+}
+
+.animate-car-passing {
+  animation: car-passing 8s linear infinite;
+}
+
+/* Animations de flottement pour les nuages et éléments */
+@keyframes float-slow {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-medium {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
