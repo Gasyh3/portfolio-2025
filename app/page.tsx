@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import { TimelineSchool } from "@/components/Timeline";
 import { FloatingSocial } from "@/components/FloatingSocial";
@@ -10,9 +13,32 @@ import MesosphereSection from "@/components/MesosphereSection";
 import AtmosphereSection from "@/components/AtmosphereSection";
 import EarthSection from "@/components/EarthSection";
 import UndergroundSection from "@/components/UndergroundSection";
-// Test de l'outil edit_file
+import MaintenancePage from "@/components/MaintenancePage";
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    setIsLoading(false);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isLoading) {
+    return null; // ou un loader si nécessaire
+  }
+
+  if (isMobile) {
+    return <MaintenancePage />;
+  }
+
   return (
     <>
       {/* Header est géré séparément pour garder la navigation flottante */}

@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
+import MobileSpaceSection from './MobileSpaceSection';
 
 // Dialog component pour l'À Propos
 const AboutDialog = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
@@ -247,6 +248,21 @@ const AboutDialog = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 };
 
 export default function SpaceSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isMobile) {
+    return <MobileSpaceSection />;
+  }
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const [stars, setStars] = useState<Array<{ x: number; y: number; size: number; opacity: number; speed: number }>>([]);
   const [isAboutOpen, setIsAboutOpen] = useState(false);

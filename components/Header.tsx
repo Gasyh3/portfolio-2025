@@ -2,16 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { IconBrandGithub, IconBrandGitlab, IconBrandX, IconMenu2, IconX } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandGitlab, IconBrandX } from "@tabler/icons-react";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Fermer le menu mobile lors du clic sur un lien
   const handleLinkClick = (sectionId: string) => {
-    setMobileMenuOpen(false);
     setActiveSection(sectionId);
   };
 
@@ -96,22 +94,14 @@ export function Header() {
     // Exécuter une fois pour initialiser
     setTimeout(handleScroll, 300); // Délai court pour s'assurer que le DOM est prêt
     
-    // Empêcher le défilement du body quand le menu mobile est ouvert
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen, sectionIds]);
+  }, [sectionIds]);
 
   // Déterminer les classes de style en fonction de la section active et du scroll
   const getHeaderStyles = () => {
-    if (!scrolled && !mobileMenuOpen) {
+    if (!scrolled) {
       return 'bg-transparent text-white';
     }
 
@@ -153,20 +143,13 @@ export function Header() {
     }
   };
 
-  const headerClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out backdrop-blur-sm ${getHeaderStyles()} ${scrolled || mobileMenuOpen ? 'header-scrolled' : ''}`;
+  const headerClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out backdrop-blur-sm ${getHeaderStyles()}`;
   const logoClasses = `text-2xl font-bold group-hover:text-blue-300 transition-colors duration-300 relative text-white`;
   const linkBaseClasses = `nav-link transition-all duration-300 relative group px-1`;
   
   // Génération des classes pour les liens de navigation
-  const getLinkClasses = (section: string, isMobile = false) => {
+  const getLinkClasses = (section: string) => {
     const isActive = activeSection === section;
-    
-    if (isMobile) {
-      return {
-        container: `${linkBaseClasses} ${isActive ? 'text-white font-semibold' : 'text-white/80 hover:text-white'} py-3 block w-full text-center text-lg`
-      };
-    }
-    
     return {
       container: `${linkBaseClasses} ${isActive ? 'text-white font-semibold' : 'text-white/80 hover:text-white'} pb-2 transition-all duration-500`
     };
@@ -183,11 +166,6 @@ export function Header() {
     { id: 'experience', label: 'Expérience' },
     { id: 'contact', label: 'Contact' }
   ];
-
-  // Afficher la section active pour le débogage (à retirer en production)
-  useEffect(() => {
-    console.log('Section active:', activeSection);
-  }, [activeSection]);
 
   // Après la définition navSections, ajoutons des styles globaux pour les animations
   const headerAnimationStyles = `
@@ -208,8 +186,7 @@ export function Header() {
   `;
 
   return (
-    <header className={headerClasses}>
-      {/* Style pour les animations */}
+    <header className={`hidden md:flex md:z-50 ${headerClasses}`}>      {/* Style pour les animations */}
       <style jsx global>{headerAnimationStyles}</style>
       
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -222,7 +199,7 @@ export function Header() {
         </Link>
 
         {/* Navigation Desktop */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="flex items-center space-x-6">
           {navSections.map((section, index) => {
             const linkStyles = getLinkClasses(section.id);
             return (
@@ -241,14 +218,14 @@ export function Header() {
         </nav>
 
         {/* Social Links */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="flex items-center space-x-4">
           <Link
             href="https://github.com/Gasyh3"
             target="_blank"
             rel="noopener noreferrer"
             className={socialLinkClasses}
           >
-            <IconBrandGithub className="w-6 h-6" />
+            <IconBrandGithub className="w-5 h-5" />
           </Link>
           <Link
             href="https://gitlab.com/Gasyh3"
@@ -256,71 +233,17 @@ export function Header() {
             rel="noopener noreferrer"
             className={socialLinkClasses}
           >
-            <IconBrandGitlab className="w-6 h-6" />
+            <IconBrandGitlab className="w-5 h-5" />
           </Link>
-         
+          <Link
+            href="https://twitter.com/Gasyh3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={socialLinkClasses}
+          >
+            <IconBrandX className="w-5 h-5" />
+          </Link>
         </div>
-        
-        {/* Mobile menu button */}
-        <button 
-          className="md:hidden text-white"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-        >
-          {mobileMenuOpen ? (
-            <IconX className="w-6 h-6" />
-          ) : (
-            <IconMenu2 className="w-6 h-6" />
-          )}
-        </button>
-      </div>
-      
-      {/* Mobile Menu */}
-      <div 
-        className={`fixed inset-0 bg-black/95 z-40 flex flex-col justify-center items-center transition-all duration-500 ease-in-out ${
-          mobileMenuOpen 
-            ? 'opacity-100 pointer-events-auto translate-y-0' 
-            : 'opacity-0 pointer-events-none -translate-y-8'
-        }`}
-        style={{ top: '4rem' }}
-      >
-        <nav className="flex flex-col items-center space-y-6 w-full py-8">
-          {navSections.map((section, index) => {
-            const linkStyles = getLinkClasses(section.id, true);
-            return (
-              <div key={section.id} className="relative w-full flex justify-center">
-                <Link 
-                  href={`#${section.id}`} 
-                  className={linkStyles.container}
-                  onClick={() => handleLinkClick(section.id)}
-                  style={{ animationDelay: `${index * 100 + 300}ms` }}
-                >
-                  {section.label}
-                </Link>
-              </div>
-            );
-          })}
-          
-          <div className="flex items-center space-x-8 mt-8 pt-8 border-t border-white/20 w-48">
-            <Link
-              href="https://github.com/Gasyh3"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/70 hover:text-white transition-colors duration-300"
-            >
-              <IconBrandGithub className="w-6 h-6" />
-            </Link>
-            <Link
-              href="https://gitlab.com/Gasyh3"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/70 hover:text-white transition-colors duration-300"
-            >
-              <IconBrandGitlab className="w-6 h-6" />
-            </Link>
-           
-          </div>
-        </nav>
       </div>
     </header>
   );

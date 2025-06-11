@@ -137,7 +137,7 @@ export default function UndergroundSection() {
       
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center">
             <h2 className="section-title text-4xl font-bold text-amber-300 mb-4 transition-all duration-1000 ease-out opacity-0 translate-y-5">
               Contact & Exploration
             </h2>
@@ -253,7 +253,7 @@ export default function UndergroundSection() {
           </div>
           
           {/* Section footer */}
-          <div className="border-t border-amber-700/30 pt-8 mt-16">
+          <div className="border-t border-amber-700/30 pt-2">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="md:col-span-1">
                 <Link href="/" className="inline-block mb-4">
@@ -284,7 +284,7 @@ export default function UndergroundSection() {
               </div>
             </div>
             
-            <div className="border-t border-amber-700/30 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="border-t border-amber-700/30 mt-1 pt-2 flex flex-col md:flex-row justify-between items-center">
               <p className="text-amber-100/60 text-sm mb-4 md:mb-0">
                 &copy; {currentYear} Kevin Rakotoniaina. Tous droits réservés.
               </p>
