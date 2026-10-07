@@ -365,3 +365,10 @@ body {
     transition: none;
   }
 }
+
+/* Carte projet au format carte Pokémon (63 × 88 mm ≈ 5:7), limitée par la hauteur d'écran */
+.project-card-size {
+  aspect-ratio: 5 / 7;
+  width: min(100%, 320px, calc((100vh - 15rem) * 5 / 7));
+  width: min(100%, 320px, calc((100dvh - 15rem) * 5 / 7));
+}

@@ -6,11 +6,11 @@ import MobileSection from './MobileSection';
 import MobileSpaceSection from './MobileSpaceSection';
 import MobileStratosphereSection from './MobileStratosphereSection';
 import MobileMesosphereSection from './MobileMesosphereSection';
+import MobileAtmosphereSection from './MobileAtmosphereSection';
 import { MOBILE_SECTIONS } from './sections';
 
 // Fond provisoire de chaque étape (reprend les couleurs de la version desktop)
 const PLACEHOLDER_BACKGROUNDS: Record<string, string> = {
-  projets: 'linear-gradient(to bottom, #4b6cb7 0%, #76a9e6 50%, #9be2fe 100%)',
   experience: 'linear-gradient(to bottom, #06b6d4 0%, #0ea5e9 30%, #2563eb 70%, #1e40af 100%)',
   contact: 'linear-gradient(to bottom, #15803d 0%, #78350f 50%, #111827 100%)',
 };
@@ -85,14 +85,22 @@ export default function MobileApp() {
           <MobileMesosphereSection />
         </MobileSection>
 
-        {/* Étapes 4 à 6 — à construire */}
-        {MOBILE_SECTIONS.slice(3).map((section, index) => (
+        {/* Étape 4 — Atmosphère */}
+        <MobileSection
+          id="projets"
+          style={{ background: 'linear-gradient(to bottom, #4b6cb7 0%, #76a9e6 50%, #9be2fe 100%)' }}
+        >
+          <MobileAtmosphereSection />
+        </MobileSection>
+
+        {/* Étapes 5 et 6 — à construire */}
+        {MOBILE_SECTIONS.slice(4).map((section, index) => (
           <MobileSection
             key={section.id}
             id={section.id}
             style={{ background: PLACEHOLDER_BACKGROUNDS[section.id] }}
           >
-            <PlaceholderContent label={section.label} step={index + 4} />
+            <PlaceholderContent label={section.label} step={index + 5} />
           </MobileSection>
         ))}
       </main>
