@@ -79,11 +79,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
 
         {/* Type */}
-        <div className="mt-1.5 flex items-center justify-between text-[10px] font-semibold text-slate-700">
+        <div className="mt-1.5 flex items-center text-[10px] font-semibold">
           <span className="px-2 py-0.5 rounded-full bg-slate-900/80 text-yellow-200 uppercase tracking-wider">
             {project.type}
           </span>
-          <span className="italic">Projet web</span>
         </div>
 
         {/* Technos */}
