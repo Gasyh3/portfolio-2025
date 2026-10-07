@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import MobileIdCard from './MobileIdCard';
 import { IconBrandGithub, IconBrandLinkedin, IconBrandX, IconMail } from '@tabler/icons-react';
 
 const EMAIL = 'kevin.rakotoniaina@epitech.eu';
@@ -14,6 +15,9 @@ const SOCIAL_LINKS = [
 
 export default function MobileSpaceSection() {
   const [stars, setStars] = useState<Array<{ x: number; y: number; size: number; opacity: number }>>([]);
+
+  const [isIdCardOpen, setIsIdCardOpen] = useState(false);
+  const closeIdCard = useCallback(() => setIsIdCardOpen(false), []);
 
   // Generate stars on component mount
   useEffect(() => {
@@ -81,27 +85,29 @@ export default function MobileSpaceSection() {
         </a>
       </div>
 
-      {/* About button - fixed position, ne fait plus rien */}
+      {/* Badge — ouvre la carte d'identité */}
       <button
-        className="absolute bottom-24 left-1/2 transform -translate-x-1/2 z-30 w-16 h-16 rounded-full flex items-center justify-center"
+        className="absolute bottom-24 left-1/2 transform -translate-x-1/2 z-30 w-16 h-16 rounded-full flex items-center justify-center animate-pulse-slow active:scale-95 transition-transform"
         style={{
           background: 'linear-gradient(135deg, rgba(56,182,255,0.8) 0%, rgba(11,43,79,0.9) 100%)',
           boxShadow: '0 0 15px 5px rgba(0,191,255,0.5), inset 0 0 10px 2px rgba(255,255,255,0.4)',
           border: '2px solid rgba(136,220,255,0.6)'
         }}
-        tabIndex={-1}
-        aria-hidden="true"
         type="button"
-        disabled
+        onClick={() => setIsIdCardOpen(true)}
+        aria-label="Ouvrir la carte d'identité"
+        aria-haspopup="dialog"
       >
         <Image
           src="/images/stuff/badge.png"
-          alt="À propos"
+          alt=""
           width={48}
           height={48}
           className="object-contain"
         />
       </button>
+
+      <MobileIdCard isOpen={isIdCardOpen} onClose={closeIdCard} />
 
       {/* Transition gradient overlay */}
       <div
