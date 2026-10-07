@@ -161,7 +161,7 @@ export default function UndergroundSection() {
                     </div>
                     <div>
                       <h4 className="text-sm font-semibold text-amber-300">E-mail</h4>
-                      <a href="mailto:contact@kevin-rakotoniaina.com" className="text-amber-100 hover:text-amber-300 transition-colors">
+                      <a href="mailto:kevin.rakotoniaina@epitech.eu" className="text-amber-100 hover:text-amber-300 transition-colors">
                         kevin.rakotoniaina@epitech.eu
                       </a>
                     </div>
@@ -176,7 +176,7 @@ export default function UndergroundSection() {
                     </div>
                     <div>
                       <h4 className="text-sm font-semibold text-amber-300">Localisation</h4>
-                      <p className="text-amber-100">Lyon, France</p>
+                      <p className="text-amber-100">Île-de-France, France</p>
                     </div>
                   </div>
 

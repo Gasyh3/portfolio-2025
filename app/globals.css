@@ -256,30 +256,10 @@ body {
   padding-top: env(safe-area-inset-top);
 }
 
-/* Désactiver les animations sur mobile */
-@media (max-width: 768px) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-/* Styles pour les éléments interactifs sur mobile */
-@media (max-width: 768px) {
-  button, a {
-    min-height: 44px;
-    min-width: 44px;
-    padding: 12px;
-  }
-}
-
-/* Optimisation du rendu sur mobile */
+/* Pas de surlignage au toucher sur mobile */
 @media (max-width: 768px) {
   * {
     -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
   }
 }
 
