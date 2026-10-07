@@ -1,17 +1,8 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
-
-// Interface pour les expériences professionnelles
-interface Experience {
-  role: string;
-  company: string;
-  period: string;
-  description: string;
-  skills: string[];
-  isApprenticeship: boolean;
-}
+import { EXPERIENCES } from '@/lib/experiences';
 
 export default function EarthSection() {
   const buildingsRef = useRef<HTMLDivElement>(null);
@@ -64,20 +55,8 @@ export default function EarthSection() {
           const timelineItems = sectionRef.current?.querySelectorAll('.timeline-item');
           timelineItems?.forEach((item, index) => {
             setTimeout(() => {
-              item.classList.add('opacity-100', 'translate-x-0');
-              item.classList.remove('opacity-0');
-              
-              if (window.innerWidth >= 768) {
-                // Desktop animation
-                if (index % 2 === 0) {
-                  item.classList.remove('-translate-x-10');
-                } else {
-                  item.classList.remove('translate-x-10');
-                }
-              } else {
-                // Mobile animation
-                item.classList.remove('translate-y-10');
-              }
+              item.classList.add('opacity-100');
+              item.classList.remove('opacity-0', 'translate-y-10');
             }, index * 200);
           });
         }
@@ -93,34 +72,7 @@ export default function EarthSection() {
     };
   }, []);
   
-  // Expériences professionnelles
-  const experiences: Experience[] = [
-    {
-      role: "Développeur Fullstack",
-      company: "MASTORE SARL",
-      period: "Décembre 2023 - Juillet 2025",
-      description: "Maintenance évolutive de l'ERP interne et développement d'un module statistique en Go, PostgreSQL et React. Participation aux revues de code, CI/CD avec GitLab, et mise en production via ArgoCD. Collaboration en équipe agile (sprints hebdomadaires).",
-      skills: ["Go", "React", "PostgreSQL", "Docker", "GitLab", "ArgoCD"],
-      isApprenticeship: true
-    },
-    {
-      role: "Développeur Web & Mobile",
-      company: "WAA-AGROPRO",
-      period: "Mars 2023 - Décembre 2023",
-      description: "Création d'une application mobile FlutterFlow pour la plateforme de petites annonces MESBONAF. Intégration Firebase (authentification, base de données, notifications), maintenance du site e-commerce sous Prestashop et développement d'interfaces interactives.",
-      skills: ["FlutterFlow", "Firebase", "React", "PHP", "PrestaShop", "Figma"],
-      isApprenticeship: true
-    },
-  ];
-  
-
-  // State to track if we're on client-side
-  const [isClient, setIsClient] = useState(false);
-  
-  // Set isClient to true once component mounts (client-side only)
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const experiences = EXPERIENCES;
 
   return (
     <section className="relative pt-20 pb-32 overflow-hidden min-h-screen" ref={sectionRef} id="experience">
@@ -186,52 +138,48 @@ export default function EarthSection() {
       
       {/* Contenu principal */}
       <div className="relative z-10 container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-6">
             <h2 className="section-title text-4xl font-bold text-white mb-4 drop-shadow-lg transition-all duration-1000 ease-out opacity-0 translate-y-5">Parcours Professionnel</h2>
             <p className="text-gray-100 max-w-2xl mx-auto drop-shadow-lg transition-all duration-1000 ease-out opacity-0 translate-y-5" style={{ transitionDelay: '100ms' }}>
               Mon voyage à travers le monde professionnel, bâtissant ma carrière dans l'écosystème urbain du développement web.
             </p>
           </div>
-          
-          {/* Timeline d'expériences */}
-          <div className="relative border-l-4 border-sky-400/50 ml-4 md:ml-0 md:mx-auto backdrop-blur-sm p-6 rounded-lg bg-sky-900/50">
+
+          {/* Timeline d'expériences — une colonne par expérience, de la plus récente à la plus ancienne */}
+          <div className="relative grid grid-cols-3 gap-6">
+            {/* Ligne du temps horizontale */}
+            <div className="absolute left-0 right-0 top-[7px] h-1 rounded-full bg-sky-400/50"></div>
+
             {experiences.map((exp, index) => (
-              <div 
-                key={index} 
-                className={`timeline-item mb-12 ml-8 md:ml-0 md:flex transition-all duration-700 ease-out opacity-0 ${
-                  isClient && typeof window !== 'undefined' 
-                    ? (window.innerWidth >= 768 
-                      ? index % 2 === 0 ? '-translate-x-10' : 'translate-x-10'
-                      : 'translate-y-10')
-                    : 'translate-y-10'
-                }`}
+              <div
+                key={`${exp.company}-${exp.period}`}
+                className="timeline-item relative flex flex-col transition-all duration-700 ease-out opacity-0 translate-y-10"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {/* Ligne du temps avec effet néon */}
-                <div className="absolute -left-2 md:static md:mr-8 md:w-40 md:flex md:flex-col md:items-end">
-                  <div className="w-4 h-4 rounded-full bg-white border-4 border-sky-400 absolute -left-[10px] md:relative md:left-auto md:mb-2 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
-                  <span className="hidden md:block text-white font-semibold drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]">{exp.period}</span>
-                </div>
-                
+                {/* Point et période */}
+                <div className="w-4 h-4 rounded-full bg-white border-4 border-sky-400 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                <span className="mt-3 mb-3 text-white font-semibold drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]">{exp.period}</span>
+
                 {/* Contenu avec effet verre */}
-                <div className="bg-sky-800/60 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-sky-700/70 flex-1 hover:bg-sky-800/70 transition-all group">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">{exp.role}</h3>
-                      <p className="text-blue-200 mb-4">
-                        {exp.company} · <span className="md:hidden">{exp.period}</span>
-                        {exp.isApprenticeship && (
-                          <span className="ml-2 px-2 py-0.5 text-xs font-medium bg-blue-500/30 text-blue-200 rounded-full border border-blue-400/30">
-                            Alternance
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <p className="text-gray-300 mb-4">{exp.description}</p>
-                  
+                <div className="bg-sky-800/60 backdrop-blur-sm rounded-lg p-5 shadow-lg border border-sky-700/70 flex-1 flex flex-col hover:bg-sky-800/70 transition-all group">
+                  <h3 className="text-lg font-bold leading-snug text-white group-hover:text-blue-300 transition-colors">{exp.role}</h3>
+                  <p className="text-blue-200 mt-1 mb-4">
+                    {exp.company}
+                    <span className="ml-2 px-2 py-0.5 text-xs font-medium bg-blue-500/30 text-blue-200 rounded-full border border-blue-400/30">
+                      {exp.contract}
+                    </span>
+                  </p>
+
+                  <ul className="text-sm text-gray-200 mb-4 space-y-1.5 flex-1">
+                    {exp.highlights.map((highlight, idx) => (
+                      <li key={idx} className="flex gap-2">
+                        <span className="mt-1.5 w-1.5 h-1.5 shrink-0 rounded-full bg-sky-400"></span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+
                   <div className="flex flex-wrap gap-2">
                     {exp.skills.map((skill, idx) => (
                       <span key={idx} className="px-3 py-1 text-xs font-medium text-white bg-blue-600/40 rounded-full border border-blue-500/30 hover:bg-blue-600/60 transition-colors">
@@ -243,7 +191,7 @@ export default function EarthSection() {
               </div>
             ))}
           </div>
-          
+
           <div className="text-center mt-12 opacity-0 translate-y-5 transition-all duration-1000 ease-out" style={{ transitionDelay: '600ms' }}>
             <a 
               href="/cv.pdf" 

@@ -4,27 +4,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import MobileHeader from './MobileHeader';
 import MobileSection from './MobileSection';
 import MobileSpaceSection from './MobileSpaceSection';
+import MobileStratosphereSection from './MobileStratosphereSection';
+import MobileMesosphereSection from './MobileMesosphereSection';
+import MobileAtmosphereSection from './MobileAtmosphereSection';
+import MobileEarthSection from './MobileEarthSection';
+import MobileUndergroundSection from './MobileUndergroundSection';
 import { MOBILE_SECTIONS } from './sections';
-
-// Fond provisoire de chaque étape (reprend les couleurs de la version desktop)
-const PLACEHOLDER_BACKGROUNDS: Record<string, string> = {
-  competences: 'linear-gradient(to bottom, #0c164f 0%, #3a5cb5 70%, #4b6cb7 100%)',
-  certifications: 'linear-gradient(to bottom, #FF512F 0%, #F09819 30%, #ff9966 70%, #ff5e62 100%)',
-  projets: 'linear-gradient(to bottom, #4b6cb7 0%, #76a9e6 50%, #9be2fe 100%)',
-  experience: 'linear-gradient(to bottom, #06b6d4 0%, #0ea5e9 30%, #2563eb 70%, #1e40af 100%)',
-  contact: 'linear-gradient(to bottom, #15803d 0%, #78350f 50%, #111827 100%)',
-};
-
-// Contenu provisoire, remplacé étape par étape
-function PlaceholderContent({ label, step }: { label: string; step: number }) {
-  return (
-    <div className="mobile-section-content flex flex-col items-center justify-center text-center">
-      <span className="text-xs font-mono tracking-widest text-white/60 mb-2">ÉTAPE {step}</span>
-      <h2 className="text-3xl font-bold text-white drop-shadow">{label}</h2>
-      <p className="mt-3 text-sm text-white/70">Version mobile en préparation</p>
-    </div>
-  );
-}
 
 export default function MobileApp() {
   const scrollRef = useRef<HTMLElement>(null);
@@ -69,16 +54,42 @@ export default function MobileApp() {
           <MobileSpaceSection />
         </MobileSection>
 
-        {/* Étapes 2 à 6 — à construire */}
-        {MOBILE_SECTIONS.slice(1).map((section, index) => (
-          <MobileSection
-            key={section.id}
-            id={section.id}
-            style={{ background: PLACEHOLDER_BACKGROUNDS[section.id] }}
-          >
-            <PlaceholderContent label={section.label} step={index + 2} />
-          </MobileSection>
-        ))}
+        {/* Étape 2 — Stratosphère */}
+        <MobileSection
+          id="competences"
+          style={{ background: 'linear-gradient(to bottom, #0c164f 0%, #3a5cb5 70%, #4b6cb7 100%)' }}
+        >
+          <MobileStratosphereSection />
+        </MobileSection>
+
+        {/* Étape 3 — Mésosphère */}
+        <MobileSection
+          id="certifications"
+          style={{ background: 'linear-gradient(to bottom, #FF512F 0%, #F09819 30%, #ff9966 70%, #ff5e62 100%)' }}
+        >
+          <MobileMesosphereSection />
+        </MobileSection>
+
+        {/* Étape 4 — Atmosphère */}
+        <MobileSection
+          id="projets"
+          style={{ background: 'linear-gradient(to bottom, #4b6cb7 0%, #76a9e6 50%, #9be2fe 100%)' }}
+        >
+          <MobileAtmosphereSection />
+        </MobileSection>
+
+        {/* Étape 5 — Terre */}
+        <MobileSection
+          id="experience"
+          style={{ background: 'linear-gradient(to bottom, #06b6d4 0%, #0ea5e9 30%, #2563eb 70%, #1e40af 100%)' }}
+        >
+          <MobileEarthSection />
+        </MobileSection>
+
+        {/* Étape 6 — Sous-terre */}
+        <MobileSection id="contact" className="bg-gradient-to-b from-green-700 via-amber-900 to-gray-900">
+          <MobileUndergroundSection />
+        </MobileSection>
       </main>
     </div>
   );

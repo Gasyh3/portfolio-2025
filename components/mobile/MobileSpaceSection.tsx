@@ -1,10 +1,23 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import MobileIdCard from './MobileIdCard';
+import { IconBrandGithub, IconBrandLinkedin, IconBrandX, IconMail } from '@tabler/icons-react';
+
+const EMAIL = 'kevin.rakotoniaina@epitech.eu';
+
+const SOCIAL_LINKS = [
+  { label: 'GitHub', href: 'https://github.com/Gasyh3', Icon: IconBrandGithub },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/rakoto-kevin/', Icon: IconBrandLinkedin },
+  { label: 'Twitter', href: 'https://twitter.com/Gasyh3', Icon: IconBrandX },
+];
 
 export default function MobileSpaceSection() {
   const [stars, setStars] = useState<Array<{ x: number; y: number; size: number; opacity: number }>>([]);
+
+  const [isIdCardOpen, setIsIdCardOpen] = useState(false);
+  const closeIdCard = useCallback(() => setIsIdCardOpen(false), []);
 
   // Generate stars on component mount
   useEffect(() => {
@@ -36,38 +49,65 @@ export default function MobileSpaceSection() {
         ))}
       </div>
 
-      {/* Main content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 text-center px-4">
-        <h1 className="text-4xl font-bold text-white mb-4">
+      {/* Main content — espace réservé en haut pour le header et en bas pour le badge */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 text-center px-6 pt-14 pb-40">
+        <h1 className="text-2xl font-bold text-white mb-2 tracking-wide">
           KEVIN RAKOTONIAINA
         </h1>
-        <p className="text-lg text-gray-300 max-w-xs tracking-widest">
-          EXPLORATEUR DE L'UNIVERS NUMÉRIQUE
+        <p className="text-xs text-gray-300 max-w-xs tracking-widest">
+          EXPLORATEUR DE L&apos;UNIVERS NUMÉRIQUE
         </p>
-        <div className="mt-8 h-px w-16 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+        <div className="mt-6 h-px w-16 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+
+        {/* Réseaux */}
+        <div className="mt-6 flex items-center gap-4">
+          {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="w-11 h-11 flex items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/80 active:bg-white/15 active:text-white transition-colors"
+            >
+              <Icon className="w-5 h-5" />
+            </a>
+          ))}
+        </div>
+
+        {/* E-mail */}
+        <a
+          href={`mailto:${EMAIL}`}
+          className="mt-5 inline-flex items-center gap-2 max-w-full text-sm text-blue-200 active:text-white break-all"
+        >
+          <IconMail className="w-4 h-4 shrink-0" />
+          {EMAIL}
+        </a>
       </div>
 
-      {/* About button - fixed position, ne fait plus rien */}
+      {/* Badge — ouvre la carte d'identité */}
       <button
-        className="absolute bottom-24 left-1/2 transform -translate-x-1/2 z-30 w-16 h-16 rounded-full flex items-center justify-center"
+        className="absolute bottom-24 left-1/2 transform -translate-x-1/2 z-30 w-16 h-16 rounded-full flex items-center justify-center animate-pulse-slow active:scale-95 transition-transform"
         style={{
           background: 'linear-gradient(135deg, rgba(56,182,255,0.8) 0%, rgba(11,43,79,0.9) 100%)',
           boxShadow: '0 0 15px 5px rgba(0,191,255,0.5), inset 0 0 10px 2px rgba(255,255,255,0.4)',
           border: '2px solid rgba(136,220,255,0.6)'
         }}
-        tabIndex={-1}
-        aria-hidden="true"
         type="button"
-        disabled
+        onClick={() => setIsIdCardOpen(true)}
+        aria-label="Ouvrir la carte d'identité"
+        aria-haspopup="dialog"
       >
         <Image
           src="/images/stuff/badge.png"
-          alt="À propos"
+          alt=""
           width={48}
           height={48}
           className="object-contain"
         />
       </button>
+
+      <MobileIdCard isOpen={isIdCardOpen} onClose={closeIdCard} />
 
       {/* Transition gradient overlay */}
       <div

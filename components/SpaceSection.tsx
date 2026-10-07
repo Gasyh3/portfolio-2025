@@ -137,7 +137,7 @@ const AboutDialog = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
               </div>
               <div className="bg-cyan-900/10 border border-cyan-700/40 rounded-lg px-3 py-2">
                 <div className="text-xs text-cyan-300 font-mono">AGE</div>
-                <div className="text-sm text-white font-mono tracking-wider">25 années</div>
+                <div className="text-sm text-white font-mono tracking-wider">26 années</div>
               </div>
             </div>
           </div>
@@ -228,7 +228,7 @@ const AboutDialog = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
         {/* Pied de la carte avec signature numérique */}
         <div className="border-t border-cyan-700/30 px-6 py-3 bg-cyan-900/20 flex justify-between items-center animate-reveal-bottom">
-          <div className="text-xs text-cyan-200 font-mono">DATE D'ÉMISSION: 2187-04-12</div>
+          <div className="text-xs text-cyan-200 font-mono">DATE D'ÉMISSION: 2188-04-12</div>
           <div className="text-xs text-cyan-300 font-mono flex items-center">
             <div className="w-16 h-6 bg-cyan-900/40 mr-2 rounded overflow-hidden relative">
               <div
