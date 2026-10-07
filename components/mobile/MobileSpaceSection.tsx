@@ -18,11 +18,7 @@ export default function MobileSpaceSection() {
   }, []);
 
   return (
-    <div
-      className="relative h-screen w-full bg-black overflow-hidden section-container"
-      id="home"
-      style={{ height: '100vh', minHeight: '100vh' }}
-    >
+    <div className="absolute inset-0 bg-black overflow-hidden">
       {/* Star background */}
       <div className="absolute inset-0 z-0">
         {stars.map((star, i) => (

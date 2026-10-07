@@ -13,7 +13,7 @@ import MesosphereSection from "@/components/MesosphereSection";
 import AtmosphereSection from "@/components/AtmosphereSection";
 import EarthSection from "@/components/EarthSection";
 import UndergroundSection from "@/components/UndergroundSection";
-import MaintenancePage from "@/components/MaintenancePage";
+import MobileApp from "@/components/mobile/MobileApp";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -36,7 +36,7 @@ export default function Home() {
   }
 
   if (isMobile) {
-    return <MaintenancePage />;
+    return <MobileApp />;
   }
 
   return (
